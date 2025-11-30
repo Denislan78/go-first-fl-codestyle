@@ -10,11 +10,9 @@ func attack(charName, charClass string) string {
 	if charClass == "warrior" {
 		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+Candid(3, 5))
 	}
-
 	if charClass == "mage" {
 		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+Candid(5, 10))
 	}
-
 	if charClass == "healer" {
 		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+Candid(-3, -1))
 	}
@@ -25,26 +23,28 @@ func attack(charName, charClass string) string {
 func defence(charName, charClass string) string {
 	if charClass == "warrior" {
 		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+Candid(5, 10))
-	} else if charClass == "mage" {
-		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+Candid(-2, 2))
-	} else if charClass == "healer" {
-		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+Candid(2, 5))
-	} else {
-		return "неизвестный класс персонажа"
 	}
+	if charClass == "mage" {
+		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+Candid(-2, 2))
+	}
+	if charClass == "healer" {
+		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+Candid(2, 5))
+	}
+	return "неизвестный класс персонажа"
 }
 
 // Обратите внимание на "if else" и на "else"
 func special(charName, charClass string) string {
 	if charClass == "warrior" {
 		return fmt.Sprintf("%s применил специальное умение `Выносливость %d`", charName, 80+25)
-	} else if charClass == "mage" {
-		return fmt.Sprintf("%s применил специальное умение `Атака %d`", charName, 5+40)
-	} else if charClass == "healer" {
-		return fmt.Sprintf("%s применил специальное умение `Защита %d`", charName, 10+30)
-	} else {
-		return "неизвестный класс персонажа"
 	}
+	if charClass == "mage" {
+		return fmt.Sprintf("%s применил специальное умение `Атака %d`", charName, 5+40)
+	}
+	if charClass == "healer" {
+		return fmt.Sprintf("%s применил специальное умение `Защита %d`", charName, 10+30)
+	}
+	return "неизвестный класс персонажа"
 }
 
 // Здесь обратите внимание на имена параметров
@@ -52,15 +52,12 @@ func startTraining(charName, charClass string) string {
 	if charClass == "warrior" {
 		fmt.Printf("%s, ты Воитель - отличный боец ближнего боя.\n", charName)
 	}
-
 	if charClass == "mage" {
 		fmt.Printf("%s, ты Маг - превосходный укротитель стихий.\n", charName)
 	}
-
 	if charClass == "healer" {
 		fmt.Printf("%s, ты Лекарь - чародей, способный исцелять раны.\n", charName)
 	}
-
 	fmt.Println("Потренируйся управлять своими навыками.")
 	fmt.Println("Введи одну из команд: attack — чтобы атаковать противника,")
 	fmt.Println("defence — чтобы блокировать атаку противника,")
@@ -74,20 +71,17 @@ func startTraining(charName, charClass string) string {
 		if err != nil {
 			return ""
 		}
-
-		if cmd == "attack" {
+		switch {
+		case cmd == "attack":
 			fmt.Println(attack(charName, charClass))
-		}
-
-		if cmd == "defence" {
+		case cmd == "defence":
 			fmt.Println(defence(charName, charClass))
-		}
-
-		if cmd == "special" {
+		case cmd == "special":
 			fmt.Println(special(charName, charClass))
+		default:
+			fmt.Println("неизвестная команда")
 		}
 	}
-
 	return "тренировка окончена"
 }
 
@@ -102,12 +96,13 @@ func choseCharClass() string {
 		if err != nil {
 			return ""
 		}
-
 		if charClass == "warrior" {
 			fmt.Println("Воитель — дерзкий воин ближнего боя. Сильный, выносливый и отважный.")
-		} else if charClass == "mage" {
+		}
+		if charClass == "mage" {
 			fmt.Println("Маг — находчивый воин дальнего боя. Обладает высоким интеллектом.")
-		} else if charClass == "healer" {
+		}
+		if charClass == "healer" {
 			fmt.Println("Лекарь — могущественный заклинатель. Черпает силы из природы, веры и духов.")
 		}
 		fmt.Print("Нажми (Y), чтобы подтвердить выбор, или любую другую кнопку, чтобы выбрать другого персонажа: ")
@@ -115,7 +110,6 @@ func choseCharClass() string {
 		if err != nil {
 			return ""
 		}
-
 		approveChoice = strings.ToLower(approveChoice)
 	}
 	return charClass
@@ -132,7 +126,6 @@ func main() {
 	if err != nil {
 		return
 	}
-
 	fmt.Printf("Здравствуй, %s\n", charName)
 	fmt.Println("Сейчас твоя выносливость — 80, атака — 5 и защита — 10.")
 	fmt.Println("Ты можешь выбрать один из трёх путей силы:")
@@ -142,7 +135,6 @@ func main() {
 
 	fmt.Println(startTraining(charName, charClass))
 }
-
 func Candid(min, max int) int {
 	return rand.Intn(max-min) + min
 }
