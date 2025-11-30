@@ -71,12 +71,12 @@ func startTraining(charName, charClass string) string {
 		if err != nil {
 			return ""
 		}
-		switch {
-		case cmd == "attack":
+		switch cmd {
+		case "attack":
 			fmt.Println(attack(charName, charClass))
-		case cmd == "defence":
+		case "defence":
 			fmt.Println(defence(charName, charClass))
-		case cmd == "special":
+		case "special":
 			fmt.Println(special(charName, charClass))
 		default:
 			fmt.Println("неизвестная команда")
